@@ -1,0 +1,30 @@
+#!/usr/bin/python
+import sys
+import math
+
+def factorize(n):
+    for p in range(2, int(math.sqrt(n)) + 1):
+        if n % p == 0:
+            q = n // p
+            return "{}={}*{}".format(n, p, q)
+    return "{}=1*{}".format(n, n)
+
+if len(sys.argv) != 2:
+    print("Usage: python factors.py <file>")
+    sys.exit(1)
+
+input_file = sys.argv[1]
+
+try:
+    with open(input_file, 'r') as file:
+        for line in file:
+            n = int(line.strip())
+            result = factorize(n)
+            print(result)
+
+except IOError:
+    print("File '{}' not found.".format(input_file))
+    sys.exit(1)
+except ValueError:
+    print("Invalid input. Please provide a file with valid natural numbers greater than 1.")
+    sys.exit(1)
